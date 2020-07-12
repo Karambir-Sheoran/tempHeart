@@ -23,9 +23,9 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         primaryColor: Colors.black,
       ),
-      darkTheme: ThemeData(
+      /*darkTheme: ThemeData(
         brightness: Brightness.dark,
-      ),
+      ),*/
       home: LoginPage()
     );
   }

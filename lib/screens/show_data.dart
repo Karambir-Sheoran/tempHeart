@@ -32,11 +32,50 @@ class ShowData extends StatelessWidget {
               ListView.builder(itemCount: snapshot.data["humanVitals"].length,
                   itemBuilder: (context, index){
                     return Card(
+                      shadowColor: Colors.green,
+                      //color: Colors.white54,
                       child: ListTile(onTap: () {displayDialog(context, "Time: ${DateTime.parse(snapshot.data["humanVitals"][index]["timestamp"]).toLocal()}",
                           "Heart Rate:- ${snapshot.data["humanVitals"][index]['heartRate']}\nTemperature:- ${snapshot.data["humanVitals"][index]["temperature"]}");},
-                        leading: Icon(Icons.person,color: Colors.red[200],),
-                        title: Text("Heart Rate:- ${snapshot.data["humanVitals"][index]['heartRate']}\nTemperature:- ${snapshot.data["humanVitals"][index]["temperature"]}"),
-                        subtitle: Text("timestamp:- ${DateTime.parse(snapshot.data["humanVitals"][index]["timestamp"]).toLocal()}"),),elevation: 10,
+                        //leading: Icon(Icons.person,color: Colors.red[200]),
+                        //title: Text("Heart Rate:- ${snapshot.data["humanVitals"][index]['heartRate']}\nTemperature:- ${snapshot.data["humanVitals"][index]["temperature"]}",),
+                        //subtitle: Text("timestamp:- ${DateTime.parse(snapshot.data["humanVitals"][index]["timestamp"]).toLocal()}"),
+                        title: Text("User Name ${index+1}",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
+                        subtitle: Column(
+                          children: <Widget>[
+                            SizedBox(height: 10,),
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(child: Row(
+                                  children: <Widget>[
+                                    Image.asset("assets/heart.png",height: 25,width: 25,),
+                                    SizedBox(width: 5,),
+                                    Text("${snapshot.data["humanVitals"][index]['heartRate']} Beats",style: TextStyle(fontSize: 18, color: Colors.black38),),
+                                  ],
+                                ),
+                                ),
+                                SizedBox(width: 40,),
+                                Container(child: Row(
+                                  children: <Widget>[
+                                    Image.asset("assets/temp.png",height: 25,width: 25,),
+                                    SizedBox(width: 5,),
+                                    Text("${snapshot.data["humanVitals"][index]['temperature']} F",style: TextStyle(fontSize: 18, color: Colors.black38),),
+                                  ],
+                                ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10,),
+                            Row(
+                              children: <Widget>[
+                                Icon(Icons.access_time),
+                                SizedBox(width: 5,),
+                                Text("${DateTime.parse(snapshot.data["humanVitals"][index]["timestamp"]).toLocal()}",style: TextStyle(fontSize: 18, color: Colors.black38),)
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),elevation: 10,
                     );
                   })
                   :

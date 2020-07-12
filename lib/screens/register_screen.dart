@@ -42,12 +42,17 @@ class _CreateAccountState extends State<CreateAccount> {
     return Scaffold(
       appBar: AppBar(title: Text("Create Account"),),
       body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [Colors.green, Colors.blue],
+              begin: Alignment.topCenter, end: Alignment.bottomCenter),
+        ),
         padding: const EdgeInsets.all(20.0),
         child: Form(
           key: _formKey,
           child: ListView(
             children: <Widget>[
-              SizedBox(height: 30,),
+              SizedBox(height: 40,child: Center(child: Text("Create your Account",
+                style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),),
               TextFormField(
                 validator: (value){
                   if(value.length < 4)
@@ -82,7 +87,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     labelText: 'Password',
                   suffixIcon: IconButton(
                     icon: Icon(Icons.remove_red_eye,
-                        color: this._showPassword ? Colors.blue : Colors.grey),
+                        color: this._showPassword ? Colors.orange : Colors.black54),
                     onPressed: () {setState(() {
                       this._showPassword = !this._showPassword;
                     });},
@@ -103,45 +108,67 @@ class _CreateAccountState extends State<CreateAccount> {
                 ),
               ),
               SizedBox(height: 50,),
-              FlatButton(
-                color: Colors.grey,
-                  onPressed: () async {
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    var username = _usernameController.text;
-                    var password = _passwordController1.text;
+              Container(decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 5,
+                    offset: Offset(0, 5),
+                  ),
+                ],
+              ),
+                child: FlatButton(
+                  color: Colors.grey,
+                    onPressed: () async {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      var username = _usernameController.text;
+                      var password = _passwordController1.text;
 
-                      if(_formKey.currentState.validate()) {
-                        var res = await createAccount(username, password);
-                        if (res == 201) {
-                          _usernameController.clear();
-                          _passwordController1.clear();
-                          _passwordController2.clear();
-                          displayDialog(context, "Success",
-                              "The user is created. Log in now.");
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => LoginPage()));
-                        }else {
-                          _usernameController.clear();
-                          displayDialog(context, "Error",
-                              "Input Email ID is not valid");
+                        if(_formKey.currentState.validate()) {
+                          var res = await createAccount(username, password);
+                          if (res == 201) {
+                            _usernameController.clear();
+                            _passwordController1.clear();
+                            _passwordController2.clear();
+                            displayDialog(context, "Success",
+                                "The user is created. Log in now.");
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => LoginPage()));
+                          }else {
+                            _usernameController.clear();
+                            displayDialog(context, "Error",
+                                "Input Email ID is not valid");
+                          }
                         }
-                      }
-                    },
-                  child: Text("Create Account")
+                      },
+                    child: Text("Create Account")
+                ),
               ),
               SizedBox(height: 10,),
-              FlatButton(
-                color: Colors.grey,
-                child: Text("Already Registered|Log In"),
-                onPressed: () {
-                  FocusScope.of(context).requestFocus(new FocusNode());
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => LoginPage()
-                    ),
-                  );
-                },
+              Container(decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 5,
+                    offset: Offset(0, 5),
+                  ),
+                ],
+              ),
+                child: FlatButton(
+                  color: Colors.grey,
+                  child: Text("Already Registered|Log In"),
+                  onPressed: () {
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LoginPage()
+                      ),
+                    );
+                  },
+                ),
               ),
             ],
           ),

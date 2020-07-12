@@ -36,7 +36,7 @@ class _UploadDataState extends State<UploadData> {
       "businessUnitId": "UK-london",
       "deviceId": "device123",
       "heartRate": int.parse(heart),
-      "temperature": int.parse(temp),
+      "temperature": num.parse(temp),
     }));
     return res.statusCode;
   }
@@ -51,53 +51,90 @@ class _UploadDataState extends State<UploadData> {
         child: Column(
           children: <Widget>[
             Expanded(
-              child: ListView(
-                children: <Widget>[
-                  UserAccountsDrawerHeader(
-                    currentAccountPicture: CircleAvatar(child: Image.asset("assets/kraken_log.png",),backgroundColor: Colors.white54,),
-                    accountEmail: Text(user),
-                    accountName: Text(user.toString().split("@")[0]),
-                    decoration: BoxDecoration(
-                    //color: Colors.blue
-                  ),),
-                  ListTile(
-                    leading: Icon(Icons.add_location),
-                    title: Text("Contact Us"),
-                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs()));},
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.account_circle),
-                    title: Text("Log Out"),
-                    onTap: () {Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
-                    },
-                  ),
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: [Colors.green, Colors.blue],
+                      begin: Alignment.centerLeft, end: Alignment.centerRight),
+                ),
+                child: ListView(
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(colors: [Colors.blue, Colors.green],
+                        begin: Alignment.topRight, end: Alignment.bottomLeft),
+                      ),
+                      child: UserAccountsDrawerHeader(
+                        currentAccountPicture: CircleAvatar(child: Image.asset("assets/kraken_log.png",),backgroundColor: Colors.white54,),
+                        accountEmail: Text(user,style: TextStyle(color: Colors.black),),
+                        accountName: Text(user.toString().split("@")[0],style: TextStyle(color: Colors.black)),
+                        decoration: BoxDecoration(
+                        //color: Colors.blue
+                      ),),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 5,
+                          color: Colors.blue,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: ListTile(
+                        leading: Icon(Icons.add_location),
+                        title: Text("Contact Us"),
+                        onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs()));},
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 5,
+                          color: Colors.blue,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: ListTile(
+                        leading: Icon(Icons.account_circle),
+                        title: Text("Log Out"),
+                        onTap: () {Navigator.pushReplacement(
+                            context, MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
+                        },
+                      ),
+                    ),
 
-                ],
+                  ],
+                ),
               ),
             ),
-            Divider(),
-            Container(padding: EdgeInsets.only(left: 30, bottom: 20),child: Align(alignment: FractionalOffset.bottomLeft,
-              child: Text("app version: 1.0"),)),
+            Container(decoration:BoxDecoration(gradient: LinearGradient(colors: [Colors.green, Colors.blue],
+                begin: Alignment.centerLeft, end: Alignment.centerRight),),
+            child: Column(
+              children: <Widget>[
+                Divider(color: Colors.blue,thickness: 5,),
+                Container(padding: EdgeInsets.only(left: 30, bottom: 20),child: Align(alignment: FractionalOffset.bottomLeft,
+                  child: Text("app version: 1.0"),),),
+              ],
+            ),),
           ],
         ),
       ),
       body: Card(
-        color: Colors.red[40],
-        elevation: 20,
-        shadowColor: Colors.black,
+        color: Colors.lightBlue[100],
+        elevation: 200,
+        shadowColor: Colors.green,
         margin: EdgeInsets.fromLTRB(15,15,15,15),
         child: Form(
           key: _formKey,
           child: ListView(
             padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
             children: <Widget>[
+              SizedBox(height: 70,),
               GestureDetector(onTap: () { FocusScope.of(context).requestFocus(new FocusNode());},
-                  child: Container(child: Image.asset('assets/kraken_log.png',width: 20,height: 200,color: Colors.white,))),
+                  child: Container(child: Image.asset('assets/doct.png',width: 20,height: 100,))),
+              SizedBox(height: 30,),
               TextFormField(
+                keyboardType: TextInputType.number,
                 autofocus: false,
                 validator: (value){
-                  if(value.length < 2 || value.length >3){
+                  if(value.length < 2 || value.length >2){
                     return "invalid range";
                   }
                   return null;
@@ -109,8 +146,9 @@ class _UploadDataState extends State<UploadData> {
                 ),
               ),
               TextFormField(
+                keyboardType: TextInputType.number,
                 validator: (value){
-                  if(value.length < 2 || value.length > 3){
+                  if(value.length > 4){
                     return "invalid range";
                   }
                   return null;
